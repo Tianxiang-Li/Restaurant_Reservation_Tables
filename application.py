@@ -4,16 +4,11 @@ from datetime import datetime
 from resources.tables import Tables
 
 # DFF TODO At some point, explain the service factory pattern
-from service_factory import ServiceFactory
-
-service_factory = ServiceFactory()
-
 # DFF TODO Importing Flask
 #
 # These packages provide functions for deliverying a web application using Flask.
 # Students can look online for education resources.
 #
-
 from flask import Flask, Response, request
 from flask_cors import CORS
 
