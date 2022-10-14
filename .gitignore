@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 /.secret_files/
+
+# Tables.zip
+Tables.zip
