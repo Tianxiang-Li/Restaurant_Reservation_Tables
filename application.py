@@ -1,4 +1,4 @@
-import logging.handlers
+# import logging.handlers
 import json
 from datetime import datetime
 from resources.tables import Tables
@@ -11,7 +11,7 @@ from resources.tables import Tables
 #
 from flask import Flask, Response, request
 from flask_cors import CORS
-
+"""
 # Create logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -29,7 +29,7 @@ handler.setFormatter(formatter)
 
 # add Handler to Logger
 logger.addHandler(handler)
-
+"""
 app = Flask(__name__,
             static_url_path='/',
             static_folder='static/tables/',
@@ -183,7 +183,7 @@ def application(environ, start_response):
 """
 
 
-@application.route("/", methods=["GET"])
+@app.route("/", methods=["GET"])
 def simple_get():
     return welcome
 
@@ -289,4 +289,4 @@ def delete_indoor_table(cap):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=5011)
