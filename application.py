@@ -132,7 +132,7 @@ welcome = """
 </html>
 """
 
-
+"""
 def application(environ, start_response):
     path = environ['PATH_INFO']
     method = environ['REQUEST_METHOD']
@@ -155,7 +155,7 @@ def application(environ, start_response):
         ("Content-Length", str(len(response)))
     ])
     return [bytes(response, 'utf-8')]
-
+"""
 
 app = Flask(__name__,
             static_url_path='/',
