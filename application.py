@@ -111,8 +111,8 @@ welcome = """
 </head>
 <body id="sample">
   <div class="textColumn">
-    <h1>Congratulations</h1>
-    <p>Your first AWS Elastic Beanstalk Python Application is now running on your own dedicated environment in the AWS Cloud</p>
+    <h1>Tables Manipulation</h1>
+    <p>This is the Home page to manipulate tables</p>
     <p>This environment is launched with Elastic Beanstalk Python Platform</p>
   </div>
   
@@ -150,27 +150,23 @@ def application(environ, start_response):
         response = ''
     else:
         response = welcome
-    start_response("200 OK", [
-        ("Content-Type", "text/html"),
-        ("Content-Length", str(len(response)))
-    ])
-    return [bytes(response, 'utf-8')]
-"""
+        start_response("200 OK", [
+            ("Content-Type", "text/html"),
+            ("Content-Length", str(len(response)))
+        ])
+        rep = [bytes(response, 'utf-8')]
+    return rep
+#"""
 
-app = Flask(__name__,
-            static_url_path='/',
-            static_folder='static/tables/',
-            template_folder='web/templates')
-
-CORS(app)
+application = Flask(__name__)
 
 
-@app.route("/", methods=["GET"])
+@application.route("/", methods=["GET"])
 def simple_get():
     return welcome
 
 
-@app.get("/api/health")
+@application.get("/api/health")
 def get_health():
     t = str(datetime.now())
     msg = {
@@ -187,7 +183,7 @@ def get_health():
 #####################################################################################################################
 #                                                 add tables                                                        #
 #####################################################################################################################
-@app.route("/api/tables/add/indoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/add/indoor/<cap>", methods=["PUT"])
 def add_indoor_table(cap):
     result = Tables.add_table(cap, True)
     if result:
@@ -198,7 +194,7 @@ def add_indoor_table(cap):
     return rsp
 
 
-@app.route("/api/tables/add/outdoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/add/outdoor/<cap>", methods=["PUT"])
 def add_outdoor_table(cap):
     result = Tables.add_table(cap, False)
     if result:
@@ -212,7 +208,7 @@ def add_outdoor_table(cap):
 #####################################################################################################################
 #                                                 get tables                                                        #
 #####################################################################################################################
-@app.route("/api/tables/get/seats/<num>", methods=["GET"])
+@application.route("/api/tables/get/seats/<num>", methods=["GET"])
 def get_by_number(num):
     result = Tables.get_by_number(num)
     if result:
@@ -223,7 +219,7 @@ def get_by_number(num):
     return rsp
 
 
-@app.route("/api/tables/get/indoor", methods=["GET"])
+@application.route("/api/tables/get/indoor", methods=["GET"])
 def get_indoor():
     result = Tables.get_indoor(True)
     if result:
@@ -234,7 +230,7 @@ def get_indoor():
     return rsp
 
 
-@app.route("/api/tables/get/outdoor", methods=["GET"])
+@application.route("/api/tables/get/outdoor", methods=["GET"])
 def get_outdoor():
     result = Tables.get_indoor(False)
     if result:
@@ -248,7 +244,7 @@ def get_outdoor():
 #####################################################################################################################
 #                                                delete tables                                                      #
 #####################################################################################################################
-@app.route("/api/tables/delete/outdoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/delete/outdoor/<cap>", methods=["PUT"])
 def delete_outdoor_table(cap):
     result = Tables.delete_last_table(cap, False)
     if result:
@@ -259,7 +255,7 @@ def delete_outdoor_table(cap):
     return rsp
 
 
-@app.route("/api/tables/delete/indoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/delete/indoor/<cap>", methods=["PUT"])
 def delete_indoor_table(cap):
     result = Tables.delete_last_table(cap, True)
     if result:
@@ -271,4 +267,4 @@ def delete_indoor_table(cap):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5011)
+    application.run(host="0.0.0.0", port=8000)
