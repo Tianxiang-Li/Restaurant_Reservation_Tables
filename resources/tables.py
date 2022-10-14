@@ -2,6 +2,10 @@ import pymysql
 
 import os
 
+DBUSER = 'admin'
+DBPW = 'E6156cloud'
+DBHOST = 'thumbsup.cqbpyq6u5l7q.us-east-1.rds.amazonaws.com'
+
 
 class Tables:
 
@@ -10,9 +14,12 @@ class Tables:
 
     @staticmethod
     def _get_connection():
-        usr = os.environ.get("DBUSER")
-        pw = os.environ.get("DBPW")
-        h = os.environ.get("DBHOST")
+        #usr = os.environ.get("DBUSER")
+        #pw = os.environ.get("DBPW")
+        #h = os.environ.get("DBHOST")
+        usr = DBUSER
+        pw = DBPW
+        h = DBHOST
         conn = pymysql.connect(
             user=usr,
             password=pw,
