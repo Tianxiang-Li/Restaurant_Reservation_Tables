@@ -113,10 +113,10 @@ welcome = """
   <div class="textColumn">
     <h1>Tables Manipulation</h1>
     <p>This is the Home page to manipulate tables</p>
-    <h3>To add table:</h3>
+    <p>To add table:</p>
     <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/indoor/[#capacity]' to add indoor table with #capacty number of seats.</p>
     <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/outdoor/[#capacity]' to add outdoor table with #capacty number of seats.</p>
-    <h3>To delete table:</h3>
+    <p>To delete table:</p>
     <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/indoor/[#capacity]' to delete 1 indoor table with #capacty number of seats.</p>
     <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/outdoor/[#capacity]' to delete 1 outdoor table with #capacty number of seats.</p>
     <p>This environment is launched with Elastic Beanstalk Python Platform</p>
