@@ -1,17 +1,10 @@
-# import logging.handlers
+import logging.handlers
 import json
 from datetime import datetime
 from resources.tables import Tables
-
-# DFF TODO At some point, explain the service factory pattern
-# DFF TODO Importing Flask
-#
-# These packages provide functions for deliverying a web application using Flask.
-# Students can look online for education resources.
-#
 from flask import Flask, Response, request
 from flask_cors import CORS
-"""
+
 # Create logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -29,13 +22,6 @@ handler.setFormatter(formatter)
 
 # add Handler to Logger
 logger.addHandler(handler)
-"""
-app = Flask(__name__,
-            static_url_path='/',
-            static_folder='static/tables/',
-            template_folder='web/templates')
-
-CORS(app)
 
 welcome = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -126,19 +112,8 @@ welcome = """
 <body id="sample">
   <div class="textColumn">
     <h1>Congratulations</h1>
-    <p>Your first <b>(Modified)</b> AWS Elastic Beanstalk Python Application is now running on your own dedicated environment in the AWS Cloud.</p>
-    <p>This environment is launched with Elastic Beanstalk Python Platform.</p>
-    <p>Try the path /api/health and also look at the code. This shows that <b>Flask is working!<b>
-    <p></p>
-    <p>This deployed with a GitHub action! See the
-    <a href="https://medium.com/seamless-cloud/automated-deployment-to-aws-elastic-beanstalk-using-github-actions-888757a6eeb0">
-    Medium Article</a> with explanations!
-    </p>
-    <p>
-    <b>Class demos are cool!</b>
-    </p>
-    <p>
-    <i>Automated deployment rocks.</i>
+    <p>Your first AWS Elastic Beanstalk Python Application is now running on your own dedicated environment in the AWS Cloud</p>
+    <p>This environment is launched with Elastic Beanstalk Python Platform</p>
   </div>
   
   <div class="linksColumn"> 
@@ -157,7 +132,7 @@ welcome = """
 </html>
 """
 
-"""
+
 def application(environ, start_response):
     path = environ['PATH_INFO']
     method = environ['REQUEST_METHOD']
@@ -180,7 +155,14 @@ def application(environ, start_response):
         ("Content-Length", str(len(response)))
     ])
     return [bytes(response, 'utf-8')]
-"""
+
+
+app = Flask(__name__,
+            static_url_path='/',
+            static_folder='static/tables/',
+            template_folder='web/templates')
+
+CORS(app)
 
 
 @app.route("/", methods=["GET"])
