@@ -1,0 +1,96 @@
+import pymysql
+
+import os
+
+
+class Tables:
+
+    def __int__(self):
+        pass
+
+    @staticmethod
+    def _get_connection():
+        usr = os.environ.get("DBUSER")
+        pw = os.environ.get("DBPW")
+        h = os.environ.get("DBHOST")
+        conn = pymysql.connect(
+            user=usr,
+            password=pw,
+            host=h,
+            cursorclass=pymysql.cursors.DictCursor,
+            autocommit=True
+        )
+        return conn
+
+    @staticmethod
+    def add_table(cap, indoor):
+        # retrieve current max id
+        sql = "select max(table_id) from Tables.tables;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql)
+        result = cur.fetchone()
+        max_id = result['max(table_id)']
+        if max_id is None:
+            tid = 0
+        else:
+            tid = max_id + 1
+
+        # add table
+        sql = "insert into Tables.tables(table_id, seat_capacity, indoor) values(%s, %s, %s);"
+        res = cur.execute(sql, args=(tid, cap, bool(indoor)))
+
+        # retrieve the added table
+        sql = "select * from Tables.tables where table_id = %s;"
+        res = cur.execute(sql, args=tid)
+        result = cur.fetchone()
+        return result
+
+    @staticmethod
+    def delete_last_table(cap, indoor):
+        # retrieve the last table satisfying cap and indoor
+        sql = "select max(table_id) from Tables.tables where seat_capacity = %s and indoor = %s;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql, args=(cap, indoor))
+        result = cur.fetchone()
+        max_id = result['max(table_id)']
+        print(max_id)
+        if max_id is None:
+            return  # no table
+
+        # delete the retrieved table
+        sql = "Delete from Tables.tables where table_id = %s;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql, args=max_id)
+        result = cur.fetchall()
+
+        # retrieve the rest of tables satisfying cap and indoor
+        sql = "select * from Tables.tables where seat_capacity = %s and indoor = %s;"
+        res = cur.execute(sql, args=(cap, indoor))
+        result = cur.fetchall()
+
+        return result
+
+    @staticmethod
+    def get_by_number(num):
+        # get tables that has more than num seats
+        sql = "SELECT * FROM Tables.tables where seat_capacity >= %s;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql, args=num)
+        result = cur.fetchall()
+
+        return result
+
+    @staticmethod
+    def get_indoor(indoor):
+        # get tables satisfying indoor/outdoor
+        sql = "SELECT * FROM Tables.tables where indoor=%s;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql, args=indoor)
+        result = cur.fetchall()
+
+        return result
