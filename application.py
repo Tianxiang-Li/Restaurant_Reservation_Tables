@@ -113,18 +113,22 @@ welcome = """
   <div class="textColumn">
     <h1>Tables Manipulation</h1>
     <p>This is the Home page to manipulate tables</p>
+    <p>To add table:</em></p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/indoor/[#capacity]' to add indoor table with #capacty number of seats.</p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/outdoor/[#capacity]' to add outdoor table with #capacty number of seats.</p>
+    <p>To delete table:</em></p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/indoor/[#capacity]' to delete 1 indoor table with #capacty number of seats.</p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/outdoor/[#capacity]' to delete 1 outdoor table with #capacty number of seats.</p>
     <p>This environment is launched with Elastic Beanstalk Python Platform</p>
   </div>
   
   <div class="linksColumn"> 
     <h2>What's Next?</h2>
     <ul>
-    <li><a href="http://docs.amazonwebservices.com/elasticbeanstalk/latest/dg/">AWS Elastic Beanstalk overview</a></li>
-    <li><a href="http://docs.amazonwebservices.com/elasticbeanstalk/latest/dg/index.html?concepts.html">AWS Elastic Beanstalk concepts</a></li>
-    <li><a href="http://docs.amazonwebservices.com/elasticbeanstalk/latest/dg/create_deploy_Python_django.html">Deploy a Django Application to AWS Elastic Beanstalk</a></li>
-    <li><a href="http://docs.amazonwebservices.com/elasticbeanstalk/latest/dg/create_deploy_Python_flask.html">Deploy a Flask Application to AWS Elastic Beanstalk</a></li>
-    <li><a href="http://docs.amazonwebservices.com/elasticbeanstalk/latest/dg/create_deploy_Python_custom_container.html">Customizing and Configuring a Python Container</a></li>
-    <li><a href="http://docs.amazonwebservices.com/elasticbeanstalk/latest/dg/using-features.loggingS3.title.html">Working with Logs</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/health">Test Connectivity</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor">Get all indoor tables</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/outdoor">Get all indoor tables</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/seats/1">Get all talbes with at least 1 seat</a></li>
 
     </ul>
   </div>
@@ -183,7 +187,7 @@ def get_health():
 #####################################################################################################################
 #                                                 add tables                                                        #
 #####################################################################################################################
-@application.route("/api/tables/add/indoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/add/indoor/<cap>", methods=["GET", "PUT"])
 def add_indoor_table(cap):
     result = Tables.add_table(cap, True)
     if result:
@@ -194,7 +198,7 @@ def add_indoor_table(cap):
     return rsp
 
 
-@application.route("/api/tables/add/outdoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/add/outdoor/<cap>", methods=["GET", "PUT"])
 def add_outdoor_table(cap):
     result = Tables.add_table(cap, False)
     if result:
@@ -244,7 +248,7 @@ def get_outdoor():
 #####################################################################################################################
 #                                                delete tables                                                      #
 #####################################################################################################################
-@application.route("/api/tables/delete/outdoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/delete/outdoor/<cap>", methods=["GET", "PUT"])
 def delete_outdoor_table(cap):
     result = Tables.delete_last_table(cap, False)
     if result:
@@ -255,7 +259,7 @@ def delete_outdoor_table(cap):
     return rsp
 
 
-@application.route("/api/tables/delete/indoor/<cap>", methods=["PUT"])
+@application.route("/api/tables/delete/indoor/<cap>", methods=["GET", "PUT"])
 def delete_indoor_table(cap):
     result = Tables.delete_last_table(cap, True)
     if result:
