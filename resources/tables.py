@@ -81,6 +81,17 @@ class Tables:
         return result
 
     @staticmethod
+    def get_all():
+        # get all tables
+        sql = "SELECT * FROM Tables.tables;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql)
+        result = cur.fetchall()
+
+        return result
+
+    @staticmethod
     def get_by_number(num):
         # get tables that has more than num seats
         sql = "SELECT * FROM Tables.tables where seat_capacity >= %s;"

@@ -212,6 +212,16 @@ def add_outdoor_table(cap):
 #####################################################################################################################
 #                                                 get tables                                                        #
 #####################################################################################################################
+@application.route("/api/tables/get/all", methods=["GET"])
+def get_all():
+    result = Tables.get_all()
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
 @application.route("/api/tables/get/seats/<num>", methods=["GET"])
 def get_by_number(num):
     result = Tables.get_by_number(num)
