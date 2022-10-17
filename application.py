@@ -123,7 +123,7 @@ welcome = """
   </div>
   
   <div class="linksColumn"> 
-    <h2>What's Next?</h2>
+    <h2>Sample links:</h2>
     <ul>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/health">Test Connectivity: append '/api/health'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor">Get all indoor tables: append '/api/tables/get/indoor'</a></li>
