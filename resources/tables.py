@@ -115,7 +115,9 @@ class Tables:
 
     @staticmethod
     def get_num_indoor(cap, indoor):
-        sql = "SELECT * FROM RestaurantTables.RestaurantTables where seat_capacity >= %s and indoor=%s;"
+        sql = "SELECT * FROM RestaurantTables.RestaurantTables " + \
+              "where seat_capacity >= %s and indoor=%s" + \
+              "order by seat_capacity asc, table_id asc limit 1;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql, args=(cap, indoor))
