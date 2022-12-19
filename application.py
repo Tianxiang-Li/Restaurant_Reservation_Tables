@@ -114,11 +114,11 @@ welcome = """
     <h1>Tables Manipulation</h1>
     <p>This is the Home page to manipulate tables</p>
     <p>To add table:</p>
-    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/indoor/[#capacity]' to add indoor table with #capacty number of seats.</p>
-    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/outdoor/[#capacity]' to add outdoor table with #capacty number of seats.</p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/indoor?capacity=[#capacity]' to add indoor table with #capacty number of seats.</p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/outdoor?capacity=[#capacity]' to add outdoor table with #capacty number of seats.</p>
     <p>To delete table:</p>
-    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/indoor/[#capacity]' to delete 1 indoor table with #capacty number of seats.</p>
-    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/outdoor/[#capacity]' to delete 1 outdoor table with #capacty number of seats.</p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/indoor?capacity=[#capacity]' to delete 1 indoor table with #capacty number of seats.</p>
+    <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/delete/outdoor?capacity=[#capacity]' to delete 1 outdoor table with #capacty number of seats.</p>
     <p>This environment is launched with Elastic Beanstalk Python Platform</p>
   </div>
   
@@ -128,9 +128,9 @@ welcome = """
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/health">Test Connectivity: append '/api/health'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor">Get all indoor tables: append '/api/tables/get/indoor'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/outdoor">Get all outdoor tables: append '/api/tables/get/outdoor'</a></li>
-    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/seats/1">Get all talbes with at least 1 seat : append '/api/tables/get/seats/1'</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/seats?capacity=1">Get all talbes with at least 1 seat : append '/api/tables/get/seats/1'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/all">Get all tables: append '/api/tables/get/all'</a></li>
-    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor/1">Get all indoor talbes with at least 1 seat : append '/api/tables/get/indoor/1'</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor?capacity=1">Get all indoor talbes with at least 1 seat : append '/api/tables/get/indoor/1'</a></li>
     </ul>
   </div>
 </body>
@@ -188,7 +188,7 @@ def get_health():
 #####################################################################################################################
 #                                                 add tables                                                        #
 #####################################################################################################################
-@application.route("/api/tables/add/indoor/<cap>", methods=["GET", "PUT"])
+@application.route("/api/tables/add/indoor?capacity=<cap>", methods=["GET", "PUT"])
 def add_indoor_table(cap):
     result = Tables.add_table(cap, True)
     if result:
@@ -199,7 +199,7 @@ def add_indoor_table(cap):
     return rsp
 
 
-@application.route("/api/tables/add/outdoor/<cap>", methods=["GET", "PUT"])
+@application.route("/api/tables/add/outdoor?capacity=<cap>", methods=["GET", "PUT"])
 def add_outdoor_table(cap):
     result = Tables.add_table(cap, False)
     if result:
@@ -223,7 +223,7 @@ def get_all():
 
     return rsp
 
-@application.route("/api/tables/get/seats/<num>", methods=["GET"])
+@application.route("/api/tables/get/seats?capacity=<num>", methods=["GET"])
 def get_by_number(num):
     result = Tables.get_by_number(num)
     if result:
@@ -254,7 +254,7 @@ def get_outdoor():
 
     return rsp
 
-@application.route("/api/tables/get/indoor/<num>", methods=["GET"])
+@application.route("/api/tables/get/indoor?capacity=<num>", methods=["GET"])
 def get_num_indoor(num):
     result = Tables.get_num_indoor(num, True)
     if result:
@@ -264,7 +264,7 @@ def get_num_indoor(num):
 
     return rsp
 
-@application.route("/api/tables/get/outdoor/<num>", methods=["GET"])
+@application.route("/api/tables/get/outdoor?capacity=<num>", methods=["GET"])
 def get_num_outdoor(num):
     result = Tables.get_num_indoor(num, False)
     if result:
@@ -277,7 +277,7 @@ def get_num_outdoor(num):
 #####################################################################################################################
 #                                                delete tables                                                      #
 #####################################################################################################################
-@application.route("/api/tables/delete/outdoor/<cap>", methods=["GET", "PUT"])
+@application.route("/api/tables/delete/outdoor?capacity=<cap>", methods=["GET", "PUT"])
 def delete_outdoor_table(cap):
     result = Tables.delete_last_table(cap, False)
     if result:
@@ -288,7 +288,7 @@ def delete_outdoor_table(cap):
     return rsp
 
 
-@application.route("/api/tables/delete/indoor/<cap>", methods=["GET", "PUT"])
+@application.route("/api/tables/delete/indoor?capacity=<cap>", methods=["GET", "PUT"])
 def delete_indoor_table(cap):
     result = Tables.delete_last_table(cap, True)
     if result:
