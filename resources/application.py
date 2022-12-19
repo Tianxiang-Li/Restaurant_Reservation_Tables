@@ -87,6 +87,26 @@ def get_outdoor():
 
     return rsp
 
+@app.route("/api/tables/get/indoor/<num>", methods=["GET"])
+def get_num_indoor(num):
+    result = Tables.get_num_indoor(num, True)
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
+@app.route("/api/tables/get/outdoor/<num>", methods=["GET"])
+def get_num_outdoor(num):
+    result = Tables.get_indoor(num, False)
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
 
 #####################################################################################################################
 #                                                delete tables                                                      #

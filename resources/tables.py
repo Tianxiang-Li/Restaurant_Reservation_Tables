@@ -32,7 +32,7 @@ class Tables:
     @staticmethod
     def add_table(cap, indoor):
         # retrieve current max id
-        sql = "select max(table_id) from Tables.tables;"
+        sql = "select max(table_id) from RestaurantTables.RestaurantTables;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql)
@@ -44,11 +44,11 @@ class Tables:
             tid = max_id + 1
 
         # add table
-        sql = "insert into Tables.tables(table_id, seat_capacity, indoor) values(%s, %s, %s);"
+        sql = "insert into RestaurantTables.RestaurantTables(table_id, seat_capacity, indoor) values(%s, %s, %s);"
         res = cur.execute(sql, args=(tid, cap, bool(indoor)))
 
         # retrieve the added table
-        sql = "select * from Tables.tables where table_id = %s;"
+        sql = "select * from RestaurantTables.RestaurantTables where table_id = %s;"
         res = cur.execute(sql, args=tid)
         result = cur.fetchone()
         return result
@@ -56,7 +56,7 @@ class Tables:
     @staticmethod
     def delete_last_table(cap, indoor):
         # retrieve the last table satisfying cap and indoor
-        sql = "select max(table_id) from Tables.tables where seat_capacity = %s and indoor = %s;"
+        sql = "select max(table_id) from RestaurantTables.RestaurantTables where seat_capacity = %s and indoor = %s;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql, args=(cap, indoor))
@@ -67,14 +67,14 @@ class Tables:
             return  # no table
 
         # delete the retrieved table
-        sql = "Delete from Tables.tables where table_id = %s;"
+        sql = "Delete from RestaurantTables.RestaurantTables where table_id = %s;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql, args=max_id)
         result = cur.fetchall()
 
         # retrieve the rest of tables satisfying cap and indoor
-        sql = "select * from Tables.tables where seat_capacity = %s and indoor = %s;"
+        sql = "select * from RestaurantTables.RestaurantTables where seat_capacity = %s and indoor = %s;"
         res = cur.execute(sql, args=(cap, indoor))
         result = cur.fetchall()
 
@@ -83,7 +83,7 @@ class Tables:
     @staticmethod
     def get_all():
         # get all tables
-        sql = "SELECT * FROM Tables.tables;"
+        sql = "SELECT * FROM RestaurantTables.RestaurantTables;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql)
@@ -94,7 +94,7 @@ class Tables:
     @staticmethod
     def get_by_number(num):
         # get tables that has more than num seats
-        sql = "SELECT * FROM Tables.tables where seat_capacity >= %s;"
+        sql = "SELECT * FROM RestaurantTables.RestaurantTables where seat_capacity >= %s;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql, args=num)
@@ -105,10 +105,20 @@ class Tables:
     @staticmethod
     def get_indoor(indoor):
         # get tables satisfying indoor/outdoor
-        sql = "SELECT * FROM Tables.tables where indoor=%s;"
+        sql = "SELECT * FROM RestaurantTables.RestaurantTables where indoor=%s;"
         conn = Tables._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql, args=indoor)
+        result = cur.fetchall()
+
+        return result
+
+    @staticmethod
+    def get_num_indoor(cap, indoor):
+        sql = "SELECT * FROM RestaurantTables.RestaurantTables where seat_capacity >= %s and indoor=%s;"
+        conn = Tables._get_connection()
+        cur = conn.cursor()
+        res = cur.execute(sql, args=(cap, indoor))
         result = cur.fetchall()
 
         return result

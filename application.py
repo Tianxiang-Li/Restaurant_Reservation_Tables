@@ -127,9 +127,10 @@ welcome = """
     <ul>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/health">Test Connectivity: append '/api/health'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor">Get all indoor tables: append '/api/tables/get/indoor'</a></li>
-    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/outdoor">Get all indoor tables: append '/api/tables/get/indoor'</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/outdoor">Get all outdoor tables: append '/api/tables/get/outdoor'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/seats/1">Get all talbes with at least 1 seat : append '/api/tables/get/seats/1'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/all">Get all tables: append '/api/tables/get/all'</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor/1">Get all indoor talbes with at least 1 seat : append '/api/tables/get/indoor/1'</a></li>
     </ul>
   </div>
 </body>
@@ -229,7 +230,6 @@ def get_by_number(num):
         rsp = Response(json.dumps(result), status=200, content_type="application.json")
     else:
         rsp = Response("NOT FOUND", status=404, content_type="text/plain")
-
     return rsp
 
 
@@ -254,6 +254,25 @@ def get_outdoor():
 
     return rsp
 
+@application.route("/api/tables/get/indoor/<num>", methods=["GET"])
+def get_num_indoor(num):
+    result = Tables.get_num_indoor(num, True)
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
+
+@application.route("/api/tables/get/outdoor/<num>", methods=["GET"])
+def get_num_outdoor(num):
+    result = Tables.get_num_indoor(num, False)
+    if result:
+        rsp = Response(json.dumps(result), status=200, content_type="application.json")
+    else:
+        rsp = Response("NOT FOUND", status=404, content_type="text/plain")
+
+    return rsp
 
 #####################################################################################################################
 #                                                delete tables                                                      #
