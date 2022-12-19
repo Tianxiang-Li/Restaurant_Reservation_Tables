@@ -128,7 +128,7 @@ welcome = """
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/health">Test Connectivity: append '/api/health'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor">Get all indoor tables: append '/api/tables/get/indoor'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/outdoor">Get all outdoor tables: append '/api/tables/get/outdoor'</a></li>
-    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/seats?capacity=1">Get all talbes with at least 1 seat : append '/api/tables/get/seats?capacity=1'</a></li>
+    <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/all?capacity=1">Get all tables with at least 1 seat : append '/api/tables/get/all?capacity=1'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/all">Get all tables: append '/api/tables/get/all'</a></li>
     <li><a href="http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/get/indoor?capacity=1">Get all indoor talbes with at least 1 seat : append '/api/tables/get/indoor?capacity=1'</a></li>
     </ul>
@@ -223,7 +223,7 @@ def get_all():
 
     return rsp
 
-@application.route("/api/tables/get/seats?capacity=<num>", methods=["GET"])
+@application.route("/api/tables/get/all?capacity=<num>", methods=["GET"])
 def get_by_number(num):
     result = Tables.get_by_number(num)
     if result:
