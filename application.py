@@ -175,9 +175,11 @@ def before_request_func():
 
 @application.after_request
 def after_request_func(response):
-    if request.method == "PUT":
-        # send slack message when updating the schema
-        publish_notification(response)
+    # send slack message when updating the schema
+    message = dict()
+    message['request'] = request.url
+    message['response'] = response
+    publish_notification(message)
     print('after request executing: Response = \n', json.dumps(response, indent=2))
 
 
