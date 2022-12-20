@@ -4,6 +4,7 @@ from datetime import datetime
 from resources.tables import Tables
 from flask import Flask, Response, request
 from flask_cors import CORS
+from middleware.SNS_notification import publish_notification
 
 # Create logger
 logger = logging.getLogger(__name__)
@@ -165,6 +166,13 @@ def application(environ, start_response):
 
 application = Flask(__name__)
 
+@application.before_request
+def before_request_func():
+    pass
+
+@application.after_request
+def after_request_func():
+    pass
 
 @application.route("/", methods=["GET"])
 def simple_get():
