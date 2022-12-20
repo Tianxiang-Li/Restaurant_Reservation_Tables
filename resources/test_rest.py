@@ -4,7 +4,7 @@ import json
 
 def t1():
 
-    health_url = "http://127.0.0.1:5011/api/health"
+    health_url = "http://127.0.0.1:8000/api/health"
 
     try:
         h_message = requests.get(health_url)
@@ -23,7 +23,7 @@ def t1():
 
 
 def t2():
-    table_url = "http://127.0.0.1:5011/api/tables/add/indoor/2"
+    table_url = "http://127.0.0.1:8000/api/tables/add/indoor/2"
     try:
         h_message = requests.put(table_url)
         if h_message.status_code == 200:
@@ -41,7 +41,7 @@ def t2():
 
 
 def t3():
-    table_url = "http://127.0.0.1:5011/api/tables/get/seats/1"
+    table_url = "http://127.0.0.1:8000/api/tables/get/seats/1"
     try:
         h_message = requests.get(table_url)
         if h_message.status_code == 200:
@@ -59,7 +59,7 @@ def t3():
 
 
 def t4():
-    table_url = "http://127.0.0.1:5011/api/tables/get/indoor"
+    table_url = "http://127.0.0.1:8000/api/tables/get/indoor"
     try:
         h_message = requests.get(table_url)
         if h_message.status_code == 200:
@@ -76,7 +76,7 @@ def t4():
         print("\n")
 
 def t5():
-    table_url = "http://127.0.0.1:5011/api/tables/delete/indoor/2"
+    table_url = "http://127.0.0.1:8000/api/tables/delete/indoor/2"
     try:
         h_message = requests.put(table_url)
         if h_message.status_code == 200:
