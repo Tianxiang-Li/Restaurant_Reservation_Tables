@@ -166,13 +166,19 @@ def application(environ, start_response):
 
 application = Flask(__name__)
 
+
 @application.before_request
 def before_request_func():
-    pass
+    print('before request executing: Resuest = \n', json.dumps(request, indent=2))
+
 
 @application.after_request
-def after_request_func():
-    pass
+def after_request_func(response):
+    if request.method == "PUT":
+        # send slack message when updating the schema
+        pass
+    print('after request executing: Response = \n', json.dumps(response, indent=2))
+
 
 @application.route("/", methods=["GET"])
 def simple_get():
@@ -231,6 +237,7 @@ def get_all():
 
     return rsp
 
+
 @application.route("/api/tables/get/seats/<num>", methods=["GET"])
 def get_by_number(num):
     result = Tables.get_by_number(num)
@@ -262,6 +269,7 @@ def get_outdoor():
 
     return rsp
 
+
 @application.route("/api/tables/get/indoor/<num>", methods=["GET"])
 def get_num_indoor(num):
     result = Tables.get_num_indoor(num, True)
@@ -272,6 +280,7 @@ def get_num_indoor(num):
 
     return rsp
 
+
 @application.route("/api/tables/get/outdoor/<num>", methods=["GET"])
 def get_num_outdoor(num):
     result = Tables.get_num_indoor(num, False)
@@ -281,6 +290,7 @@ def get_num_outdoor(num):
         rsp = Response("NOT FOUND", status=404, content_type="text/plain")
 
     return rsp
+
 
 #####################################################################################################################
 #                                                delete tables                                                      #
