@@ -181,7 +181,7 @@ def after_request_func(response):
     print('after request executing: Response = ')
     # send slack message when updating the schema
     message = dict()
-    publish_notification(response)
+    #publish_notification(response)
     print(message)
     return response
 #"""

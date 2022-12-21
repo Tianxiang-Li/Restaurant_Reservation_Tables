@@ -2,7 +2,7 @@ import json
 import boto3
 
 
-def publish_notification(json_message):
+def publish_notification():
     sns_topic_arn = "arn:aws:sns:us-east-2:091217326042:TableUpdate"
     sns_client = boto3.client(
         'sns',
@@ -16,3 +16,5 @@ def publish_notification(json_message):
     )
     print("publish_notification response = ",
           json.dumps(res, indent=2))
+
+publish_notification()
