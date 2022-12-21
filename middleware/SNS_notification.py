@@ -16,7 +16,7 @@ def publish_notification(msg):
                               aws_secret_access_key=ACCESS_KEY)
     res = sns_client.publish(
         TopicArn=sns_topic_arn,
-        Message=msg,
+        Message=json.dumps(msg, indent=2),
     )
     print("publish_notification response = ",
           json.dumps(res, indent=2))
@@ -31,4 +31,15 @@ def check_publish(request, response):
         }
         print('checking before pubish: ')
         print('request method = ' + request.method)
-        #publish_notification(msg)
+        publish_notification(msg)
+
+
+"""
+m = {
+    "URL": "12345",
+    "Method": 'GET',
+    "Response": "Test Run"
+}
+
+publish_notification(m)
+#"""
