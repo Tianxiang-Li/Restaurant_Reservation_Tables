@@ -182,7 +182,7 @@ def after_request_func(response):
     # send slack message when updating the schema
     message = dict()
     message['request'] = request.url
-    message['response'] = response
+    message['response'] = response.get_data()
     publish_notification(message)
     return response
 #"""

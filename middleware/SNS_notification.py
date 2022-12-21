@@ -10,7 +10,7 @@ def publish_notification(json_message):
     )
     res = sns_client.publish(
         TopicArn=sns_topic_arn,
-        Message="Modified Tables: \n" + json.dumps(json_message, indent=2),
+        Message=json.dumps(json_message, indent=2),
     )
 
     print("publish_notification response = ",
