@@ -23,11 +23,12 @@ def publish_notification(msg):
 
 
 def check_publish(request, response):
-    #if request.method in ['PUT', 'POST', 'DELETE']:
-    msg = {
-        "URL": request.url,
-        "Method": request.method,
-    }
-    print('checking before pubish: ')
-    print('request method = ' + request.method)
-    #publish_notification(msg)
+    if request.method in ['PUT', 'POST', 'DELETE']:
+        msg = {
+            "URL": request.url,
+            "Method": request.method,
+            "Response": response.get_data()
+        }
+        print('checking before pubish: ')
+        print('request method = ' + request.method)
+        #publish_notification(msg)
