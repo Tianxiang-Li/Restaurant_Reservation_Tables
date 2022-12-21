@@ -165,22 +165,27 @@ def application(environ, start_response):
 #"""
 
 application = Flask(__name__)
+CORS(application)
 
 
+#"""
 @application.before_request
 def before_request_func():
     print('before request executing: Request = ')
-    print(json.dumps(request, indent=2))
+    print(request.url)
 
 
+"""
 @application.after_request
 def after_request_func(response):
+    print('after request executing: Response = ')
+    print(response)
     # send slack message when updating the schema
-    message = dict()
-    message['request'] = request.url
-    message['response'] = response
-    publish_notification(message)
-    print('after request executing: Response = \n', json.dumps(response, indent=2))
+    # message = dict()
+    # message['request'] = request.url
+    # message['response'] = response
+    # publish_notification(message)
+#"""
 
 
 @application.route("/", methods=["GET"])
@@ -321,4 +326,5 @@ def delete_indoor_table(cap):
 
 
 if __name__ == "__main__":
+    application.debug = True
     application.run(host="0.0.0.0", port=8000)
