@@ -2,6 +2,8 @@ import json
 import os
 import boto3
 
+ACCESS_ID = os.environ['ACCESS_ID']
+ACCESS_KEY = os.environ['ACCESS_KEY']
 
 
 def publish_notification(msg):
