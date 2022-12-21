@@ -183,7 +183,8 @@ def after_request_func(response):
     message = dict()
     message['request'] = request.url
     message['response'] = response.get_data()
-    publish_notification(message)
+    #publish_notification(message)
+    print(message)
     return response
 #"""
 
