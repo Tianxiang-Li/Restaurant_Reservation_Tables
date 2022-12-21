@@ -14,6 +14,7 @@ def publish_notification(msg):
                               region_name='us-east-2',
                               aws_access_key_id=ACCESS_ID,
                               aws_secret_access_key=ACCESS_KEY)
+    print("initiated client.")
     res = sns_client.publish(
         TopicArn=sns_topic_arn,
         Message=json.dumps(msg, indent=2),
@@ -27,9 +28,9 @@ def check_publish(request, response):
         msg = {
             "URL": request.url,
             "Method": request.method,
-            "Response": response.get_data()
+            "Response": response.get_data(True).json()
         }
-        print('checking before pubish: ')
+        print('checking before publish: ')
         print('request method = ' + request.method)
         publish_notification(msg)
 
