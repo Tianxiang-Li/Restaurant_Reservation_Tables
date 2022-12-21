@@ -173,6 +173,9 @@ CORS(application)
 def before_request_func():
     print('before request executing: Request = ')
     print(request.url)
+    print('before, request_method = ')
+    print(request.method)
+
 
 
 #"""

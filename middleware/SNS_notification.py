@@ -26,5 +26,6 @@ def check_publish(request, response):
         "URL": request.url,
         "Method": request.method,
     }
-    print('checking before pubish!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    print('checking before pubish: ')
+    print('request method = ' + request.method)
     #publish_notification(msg)
