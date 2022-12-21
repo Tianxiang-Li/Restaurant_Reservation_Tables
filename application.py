@@ -4,7 +4,7 @@ from datetime import datetime
 from resources.tables import Tables
 from flask import Flask, Response, request
 from flask_cors import CORS
-from middleware.SNS_notification import publish_notification
+from middleware.SNS_notification import check_publish
 
 # Create logger
 logger = logging.getLogger(__name__)
