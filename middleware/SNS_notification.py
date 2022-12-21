@@ -8,6 +8,8 @@ ACCESS_KEY = os.environ['ACCESS_KEY']
 
 def publish_notification(msg):
     sns_topic_arn = "arn:aws:sns:us-east-2:091217326042:TableUpdate"
+    print('Access_id =', ACCESS_ID)
+    print('Access_key =', ACCESS_KEY)
     sns_client = boto3.client('sns',
                               region_name='us-east-2',
                               aws_access_key_id=ACCESS_ID,

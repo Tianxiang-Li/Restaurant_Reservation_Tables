@@ -304,7 +304,7 @@ def get_num_outdoor(num):
 #####################################################################################################################
 #                                                delete tables                                                      #
 #####################################################################################################################
-@application.route("/api/tables/delete/outdoor/<cap>", methods=["GET", "PUT"])
+@application.route("/api/tables/delete/outdoor/<cap>", methods=["GET", "DELETE"])
 def delete_outdoor_table(cap):
     result = Tables.delete_last_table(cap, False)
     if result:
@@ -315,7 +315,7 @@ def delete_outdoor_table(cap):
     return rsp
 
 
-@application.route("/api/tables/delete/indoor/<cap>", methods=["GET", "PUT"])
+@application.route("/api/tables/delete/indoor/<cap>", methods=["GET", "DELETE"])
 def delete_indoor_table(cap):
     result = Tables.delete_last_table(cap, True)
     if result:
