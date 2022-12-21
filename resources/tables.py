@@ -74,7 +74,7 @@ class Tables:
         result = cur.fetchall()
 
         # retrieve the rest of tables satisfying cap and indoor
-        sql = "select * from RestaurantTables.RestaurantTables where seat_capacity = %s and indoor = %s;"
+        sql = "select * from RestaurantTables.RestaurantTables where seat_capacity = %s and indoor = %s order by table_id desc;"
         res = cur.execute(sql, args=(cap, indoor))
         result = cur.fetchall()
 

@@ -28,7 +28,7 @@ def check_publish(request, response):
         msg = {
             "URL": request.url,
             "Method": request.method,
-            "Response": response.get_data(True).json()
+            "Response": response.get_data(True)
         }
         print('checking before publish: ')
         print('request method = ' + request.method)
