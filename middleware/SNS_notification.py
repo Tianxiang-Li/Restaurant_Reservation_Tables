@@ -21,10 +21,10 @@ def publish_notification(msg):
 
 
 def check_publish(request, response):
-    if request.method in ['PUT', 'POST', 'DELETE']:
-        msg = {
-            "URL": request.url,
-            "Method": request.method,
-            "Response": response
-        }
-        publish_notification(msg)
+    #if request.method in ['PUT', 'POST', 'DELETE']:
+    msg = {
+        "URL": request.url,
+        "Method": request.method,
+        "Response": response.get_data()
+    }
+    publish_notification(msg)
