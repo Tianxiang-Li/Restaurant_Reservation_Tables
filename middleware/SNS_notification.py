@@ -8,10 +8,11 @@ def publish_notification(json_message):
         'sns',
         region_name='us-east-2',
     )
+    #msg = json.dumps(json_message, indent=2)
+    msg = "{\n \"test\": \"From SNS_notification.py\" \n}"
     res = sns_client.publish(
         TopicArn=sns_topic_arn,
-        Message=json.dumps(json_message, indent=2),
+        Message=msg,
     )
-
     print("publish_notification response = ",
           json.dumps(res, indent=2))
