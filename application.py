@@ -175,11 +175,11 @@ def before_request_func():
     print(request.url)
 
 
-"""
+#"""
 @application.after_request
 def after_request_func(response):
     print('after request executing: Response = ')
-    print(response)
+    print(response.get_data())
     # send slack message when updating the schema
     # message = dict()
     # message['request'] = request.url
