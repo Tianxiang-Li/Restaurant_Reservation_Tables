@@ -112,8 +112,8 @@ welcome = """
 </head>
 <body id="sample">
   <div class="textColumn">
-    <h1>Tables Manipulation</h1>
-    <p>This is the Home page to manipulate tables</p>
+    <h1>Tables Management</h1>
+    <p>This is the Home page to manage tables</p>
     <p>To add table:</p>
     <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/indoor/[#capacity]' to add indoor table with #capacity number of seats.</p>
     <p>'http://restaurantreservationtable-env.eba-ursbzmrt.us-east-2.elasticbeanstalk.com/api/tables/add/outdoor/[#capacity]' to add outdoor table with #capacity number of seats.</p>
